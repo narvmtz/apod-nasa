@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { sub, format, parse } from 'date-fns';
+import './fetchData.css';
 
 const FetchData = () => {
   const dateFormat = 'yyyy-MM-dd';
@@ -40,9 +41,10 @@ const FetchData = () => {
         <span>Ooops!... An error has ocurred.</span>
       ) : (
         <div>
-          <form>
+          <h1 className="title">Spacegram</h1>
+          <form className="date-picker">
             <label>
-              Select date
+              Select date:
               <input
                 type="date"
                 max={format(new Date(), dateFormat)}
@@ -52,16 +54,31 @@ const FetchData = () => {
               />
             </label>
           </form>
-          {data?.map((card) => {
-            return (
-              <div key={card?.date}>
-                <h2>{card?.title}</h2>
-                <p>{card?.date}</p>
-                <img src={card?.url} alt={card?.title} width="300" />
-                <p>{card?.explanation}</p>
-              </div>
-            );
-          })}
+          <section className="cards">
+            {data?.map((card) => {
+              return (
+                <div className="card" key={card?.date}>
+                  <img src={card?.url} alt={card?.title} className="apoc" />
+                  <h2 className="card-title">{card?.title}</h2>
+                  <p className="card-date">{card?.date}</p>
+                  <p className="card-description">{card?.explanation}</p>
+                </div>
+              );
+            })}
+          </section>
+          <section className="footer">
+            <p>
+              Brought to you by{' '}
+              <a
+                href="https://api.nasa.gov/#apod"
+                target="_blank"
+                rel="noreferrer"
+              >
+                APOD Nasa's API
+              </a>
+            </p>
+            <p>Coded with ❤️ by Nar</p>
+          </section>
         </div>
       )}
     </div>
