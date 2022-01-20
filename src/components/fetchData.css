@@ -34,11 +34,6 @@
 .card p {
   font-size: 0.85rem;
 }
-.card-title,
-.card-date,
-.card-description {
-  padding: 0 1rem;
-}
 .card-title {
   font-size: 1.2rem;
   font-weight: bold;
@@ -48,18 +43,70 @@
 .footer {
   text-align: center;
 }
+iframe {
+  width: 99%;
+  height: 15rem;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+.card-description {
+  padding: 0 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.card-description button:nth-child(2n + 1) {
+  background-color: #f7cb93;
+  border-top: 2px solid #e7e7e7;
+  border-left: 2px solid #e7e7e7;
+  border-bottom: 2px solid #979797;
+  border-right: 2px solid #979797;
+  border-radius: 1rem;
+  margin-left: 1rem;
+  padding: 0.2rem 1rem;
+}
+.button-section {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem 0.5rem;
+}
+.like-button {
+  background: none;
+  border: none;
+}
+.heartFilled {
+  color: #f26798;
+  animation: grow 0.25s cubic-bezier(0.05, 0.75, 0.83, 0.67);
+}
+@keyframes grow {
+  25% {
+    transform: scale(0.4);
+  }
+  50% {
+    transform: scale(0.6);
+  }
+  75% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
 @media (min-width: 500px) {
   .card {
     width: 45%;
+    height: 25%;
   }
 }
 @media (min-width: 768px) {
   .card {
     width: 30%;
+    height: 25%;
   }
 }
 @media (min-width: 1200px) {
   .card {
     width: 23%;
+    height: 25%;
   }
 }

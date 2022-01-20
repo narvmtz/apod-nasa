@@ -1,7 +1,16 @@
-import { React, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { sub, format, parse } from 'date-fns';
 import './fetchData.css';
+import Card from './Card';
+import DatePicker from './DatePicker';
+import {
+  TextContainer,
+  Link,
+  Page,
+  Layout,
+  AppProvider,
+} from '@shopify/polaris';
 
 const FetchData = () => {
   const dateFormat = 'yyyy-MM-dd';
@@ -41,44 +50,47 @@ const FetchData = () => {
         <span>Ooops!... An error has ocurred.</span>
       ) : (
         <div>
-          <h1 className="title">Spacegram</h1>
-          <form className="date-picker">
-            <label>
-              Select date:
-              <input
-                type="date"
-                max={format(new Date(), dateFormat)}
-                name="futureDate"
-                value={futureDate}
-                onChange={(e) => changeHandler(e)}
-              />
-            </label>
-          </form>
-          <section className="cards">
-            {data?.map((card) => {
-              return (
-                <div className="card" key={card?.date}>
-                  <img src={card?.url} alt={card?.title} className="apoc" />
-                  <h2 className="card-title">{card?.title}</h2>
-                  <p className="card-date">{card?.date}</p>
-                  <p className="card-description">{card?.explanation}</p>
-                </div>
-              );
-            })}
-          </section>
-          <section className="footer">
-            <p>
-              Brought to you by{' '}
-              <a
-                href="https://api.nasa.gov/#apod"
-                target="_blank"
-                rel="noreferrer"
-              >
-                APOD Nasa's API
-              </a>
-            </p>
-            <p>Coded with ❤️ by Nar</p>
-          </section>
+          <AppProvider
+            i18n={{
+              Polaris: {
+                ResourceList: {
+                  sortingLabel: 'Sort by',
+                  defaultItemSingular: 'item',
+                  defaultItemPlural: 'items',
+                  showing: 'Showing {itemsCount} {resource}',
+                  Item: {
+                    viewItem: 'View details for {itemName}',
+                  },
+                },
+                Common: {
+                  checkbox: 'checkbox',
+                },
+              },
+            }}
+          >
+            <Page>
+              <Layout>
+                <h1 className="title">Spacegram</h1>
+                <DatePicker
+                  changeHandler={changeHandler}
+                  dateFormat={dateFormat}
+                  futureDate={futureDate}
+                />
+                <Card data={data} className="cards" />
+                <footer className="footer">
+                  <TextContainer>
+                    <p>Brought to you by</p>
+                    <Link url="https://api.nasa.gov/#apod">
+                      APOD Nasa's API
+                    </Link>
+                    <p>
+                      Coded with ❤️ by <Link url="https://nar.works/">Nar</Link>
+                    </p>
+                  </TextContainer>
+                </footer>
+              </Layout>
+            </Page>
+          </AppProvider>
         </div>
       )}
     </div>
